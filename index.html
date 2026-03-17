@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tristan Wentzel - Senior Full-Stack Developer, Founder at Rockwell Digital, Head Architect across Sports Fusion Technology, Skedadel Tech & Digital Dynasty.">
+    <meta property="og:title" content="Tristan Wentzel - Head Architect & Full-Stack Developer">
+    <meta property="og:description" content="Building systems that scale. 50+ projects shipped.">
+    <meta property="og:type" content="website">
+    <title>Tristan Wentzel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:           #080808;
+            --bg2:          #0f0f0f;
+            --bg3:          #161616;
+            --bg4:          #1c1c1c;
+            --text:         #f2f2f2;
+            --text2:        #888;
+            --text3:        #444;
+            --accent:       #E8650A;
+            --accent-low:   rgba(232,101,10,0.10);
+            --accent-mid:   rgba(232,101,10,0.25);
+            --border:       rgba(255,255,255,0.07);
+            --border2:      rgba(255,255,255,0.12);
+            --radius:       10px;
+            --radius-lg:    16px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection { background: var(--accent); color: #fff; }
+
+        /* ─── SCROLLBAR ─────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+        /* ─── NAV ───────────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            height: 60px;
+            background: rgba(8,8,8,0.80);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s;
+        }
+
+        .nav-logo {
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            text-decoration: none;
+        }
+        .nav-logo em { color: var(--accent); font-style: normal; }
+
+        .nav-links {
+            display: flex;
+            gap: 2.25rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text2);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            transition: color 0.18s;
+        }
+        .nav-links a:hover { color: var(--text); }
+
+        /* ─── HERO ──────────────────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 6% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -5%;
+            right: -5%;
+            width: 55vw;
+            height: 55vw;
+            max-width: 700px;
+            max-height: 700px;
+            background: radial-gradient(circle, rgba(232,101,10,0.07) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero-glow2 {
+            position: absolute;
+            bottom: 0;
+            left: -10%;
+            width: 40vw;
+            height: 40vw;
+            max-width: 500px;
+            max-height: 500px;
+            background: radial-gradient(circle, rgba(232,101,10,0.04) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.2s forwards;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 36px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .hero-name {
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: 0.92;
+            color: var(--text);
+            margin-bottom: 1.75rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.35s forwards;
+        }
+        .hero-name span { color: var(--accent); }
+
+        .hero-typing-wrap {
+            font-size: clamp(1rem, 1.75vw, 1.2rem);
+            color: var(--text2);
+            font-weight: 400;
+            margin-bottom: 2.75rem;
+            min-height: 1.8rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.5s forwards;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background: var(--accent);
+            margin-left: 3px;
+            vertical-align: text-bottom;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:0 } }
+
+        .hero-ctas {
+            display: flex;
+            gap: 0.875rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.65s forwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.6rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            border: 1px solid var(--accent);
+        }
+        .btn-primary:hover { background: #cf5b09; border-color: #cf5b09; transform: translateY(-1px); }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border2);
+        }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-1px); }
+
+        .hero-stats {
+            display: flex;
+            gap: 3.5rem;
+            margin-top: 5.5rem;
+            padding-top: 2.75rem;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.8s forwards;
+        }
+
+        .stat-num {
+            font-size: 2.1rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: var(--text);
+        }
+        .stat-num em { color: var(--accent); font-style: normal; }
+
+        .stat-lbl {
+            font-size: 0.72rem;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 0.15rem;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        /* ─── SECTIONS ──────────────────────────────────────────── */
+        section { padding: 110px 6%; }
+
+        .sec-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .sec-label::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .sec-title {
+            font-size: clamp(2rem, 4.5vw, 3.25rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+        }
+
+        .sec-sub {
+            color: var(--text2);
+            font-size: 0.975rem;
+            line-height: 1.75;
+            max-width: 580px;
+        }
+
+        /* ─── ABOUT ─────────────────────────────────────────────── */
+        #about { background: var(--bg2); }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 5rem;
+            margin-top: 4.5rem;
+            align-items: start;
+        }
+
+        .about-body p {
+            color: var(--text2);
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+            font-size: 0.975rem;
+        }
+        .about-body p strong { color: var(--text); font-weight: 600; }
+
+        .roles {
+            list-style: none;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .role {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .role:last-child { border-bottom: none; }
+        .role:hover { background: var(--bg3); }
+
+        .role-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            margin-top: 0.45rem;
+            flex-shrink: 0;
+        }
+
+        .role-company {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.3px;
+            margin-bottom: 0.15rem;
+        }
+        .role-title {
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ─── STACK ─────────────────────────────────────────────── */
+        #stack { background: var(--bg); }
+
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1.25rem;
+            margin-top: 4rem;
+        }
+
+        .stack-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.625rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .stack-card:hover {
+            border-color: var(--accent-mid);
+            transform: translateY(-2px);
+        }
+
+        .stack-card-name {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .tag {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            padding: 0.28rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.18s;
+        }
+        .tag:hover {
+            background: var(--accent-low);
+            border-color: var(--accent-mid);
+            color: var(--text);
+        }
+
+        /* ─── WORK ──────────────────────────────────────────────── */
+        #work { background: var(--bg2); }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+            gap: 1.25rem;
+            margin-top: 4rem;
+        }
+
+        .work-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.875rem;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-card::after {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 1.5px;
+            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .work-card:hover {
+            border-color: rgba(232,101,10,0.22);
+            transform: translateY(-3px);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.45);
+        }
+
+        .work-card:hover::after { opacity: 1; }
+
+        .work-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.875rem;
+        }
+
+        .work-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--text);
+        }
+
+        .badge {
+            flex-shrink: 0;
+            padding: 0.22rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .badge-live {
+            background: var(--accent-low);
+            color: var(--accent);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .badge-mvp {
+            background: rgba(255,255,255,0.04);
+            color: var(--text2);
+            border: 1px solid var(--border);
+        }
+
+        .work-desc {
+            color: var(--text2);
+            font-size: 0.875rem;
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .work-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+        }
+
+        .chip {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            color: var(--text3);
+            padding: 0.2rem 0.55rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        /* ─── CONTACT ───────────────────────────────────────────── */
+        #contact {
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        #contact .sec-label { justify-content: center; }
+        #contact .sec-label::before { display: none; }
+
+        .contact-box {
+            max-width: 560px;
+            width: 100%;
+        }
+
+        .contact-text {
+            color: var(--text2);
+            font-size: 1rem;
+            line-height: 1.75;
+            margin: 1.5rem 0 2.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.875rem;
+            flex-wrap: wrap;
+        }
+
+        /* ─── DIVIDER ───────────────────────────────────────────── */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border2), transparent);
+        }
+
+        /* ─── FOOTER ────────────────────────────────────────────── */
+        footer {
+            padding: 1.75rem 6%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.78rem;
+            color: var(--text3);
+        }
+
+        footer em { color: var(--accent); font-style: normal; font-weight: 600; }
+
+        /* ─── SCROLL ANIMATIONS ─────────────────────────────────── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .reveal.in { opacity: 1; transform: none; }
+
+        /* ─── RESPONSIVE ────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .work-grid  { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            nav { padding: 0 5%; }
+            .nav-links { display: none; }
+            section { padding: 80px 5%; }
+            .hero { padding: 100px 5% 60px; }
+            .hero-stats { gap: 2rem; margin-top: 3.5rem; }
+            .hero-name { letter-spacing: -2.5px; }
+            .stack-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────── -->
+<nav id="nav">
+    <a href="#" class="nav-logo">TW<em>.</em></a>
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
+<section class="hero" id="home">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+
+    <div class="hero-eyebrow">Available for consulting &amp; architecture</div>
+
+    <h1 class="hero-name">
+        Tristan<br><span>Wentzel</span>
+    </h1>
+
+    <div class="hero-typing-wrap">
+        <span id="type-target"></span><span class="cursor"></span>
+    </div>
+
+    <div class="hero-ctas">
+        <a href="#work" class="btn btn-primary">View Work</a>
+        <a href="https://github.com/Tristan-DW" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GitHub Profile</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+
+    <div class="hero-stats">
+        <div>
+            <div class="stat-num">50<em>+</em></div>
+            <div class="stat-lbl">Projects Shipped</div>
+        </div>
+        <div>
+            <div class="stat-num">8</div>
+            <div class="stat-lbl">Production Systems</div>
+        </div>
+        <div>
+            <div class="stat-num">1M<em>+</em></div>
+            <div class="stat-lbl">Lines of Code</div>
+        </div>
+        <div>
+            <div class="stat-num">5<em>+</em></div>
+            <div class="stat-lbl">Years Building</div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+<section id="about">
+    <div class="sec-label">Background</div>
+    <h2 class="sec-title">Full-Stack Engineer.<br>Head Architect.</h2>
+
+    <div class="about-grid">
+        <div class="about-body reveal">
+            <p>
+                I build systems that handle real load, real data, and real users.
+                From a <strong>fleet management platform tracking live vehicles</strong> to a
+                <strong>clinical AI system</strong> that lets doctors interrogate patient records in real time -
+                every project I take on gets owned end to end.
+            </p>
+            <p>
+                Architecture, API design, database schema, frontend, deployment.
+                I do not hand off. I do not work in silos.
+                I take a problem and build the solution that solves it properly.
+            </p>
+            <p>
+                Currently running <strong>Rockwell Digital</strong> and serving as Head Architect
+                across multiple active platforms in sports tech, fleet operations, and AI.
+            </p>
+        </div>
+
+        <ul class="roles reveal">
+            <li class="role">
+                <span class="role-dot"></span>
+                <div>
+                    <div class="role-company">Rockwell Digital</div>
+                    <div class="role-title">Founder</div>
+                </div>
+            </li>
+            <li class="role">
+                <span class="role-dot"></span>
+                <div>
+                    <div class="role-company">Digital Dynasty</div>
+                    <div class="role-title">Senior Full-Stack Developer</div>
+                </div>
+            </li>
+            <li class="role">
+                <span class="role-dot"></span>
+                <div>
+                    <div class="role-company">Sports Fusion Technology</div>
+                    <div class="role-title">Head Architect</div>
+                </div>
+            </li>
+            <li class="role">
+                <span class="role-dot"></span>
+                <div>
+                    <div class="role-company">Skedadel Tech</div>
+                    <div class="role-title">Head Architect</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- ─── STACK ─────────────────────────────────────────────────── -->
+<section id="stack">
+    <div class="sec-label">Technologies</div>
+    <h2 class="sec-title">The Stack</h2>
+    <p class="sec-sub">Picking the right tool for the job, every time. These are the technologies I build production systems with.</p>
+
+    <div class="stack-grid">
+        <div class="stack-card reveal">
+            <div class="stack-card-name">Languages</div>
+            <div class="tags">
+                <span class="tag">TypeScript</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Python</span>
+                <span class="tag">PHP</span>
+                <span class="tag">Dart</span>
+                <span class="tag">C#</span>
+                <span class="tag">C++</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Bash</span>
+            </div>
+        </div>
+
+        <div class="stack-card reveal">
+            <div class="stack-card-name">Frontend &amp; Mobile</div>
+            <div class="tags">
+                <span class="tag">React</span>
+                <span class="tag">Next.js</span>
+                <span class="tag">Flutter</span>
+                <span class="tag">Tailwind CSS</span>
+                <span class="tag">HTML5</span>
+                <span class="tag">CSS3</span>
+            </div>
+        </div>
+
+        <div class="stack-card reveal">
+            <div class="stack-card-name">Backend &amp; APIs</div>
+            <div class="tags">
+                <span class="tag">Node.js</span>
+                <span class="tag">Laravel</span>
+                <span class="tag">Express</span>
+                <span class="tag">REST</span>
+                <span class="tag">WebSockets</span>
+                <span class="tag">JWT</span>
+                <span class="tag">OAuth2</span>
+            </div>
+        </div>
+
+        <div class="stack-card reveal">
+            <div class="stack-card-name">Databases</div>
+            <div class="tags">
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">Redis</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">MS SQL</span>
+                <span class="tag">SQLite</span>
+            </div>
+        </div>
+
+        <div class="stack-card reveal">
+            <div class="stack-card-name">Cloud &amp; DevOps</div>
+            <div class="tags">
+                <span class="tag">AWS</span>
+                <span class="tag">EC2</span>
+                <span class="tag">ECS</span>
+                <span class="tag">RDS</span>
+                <span class="tag">S3</span>
+                <span class="tag">Docker</span>
+                <span class="tag">GitHub Actions</span>
+                <span class="tag">Nginx</span>
+                <span class="tag">Linux</span>
+            </div>
+        </div>
+
+        <div class="stack-card reveal">
+            <div class="stack-card-name">AI &amp; Integrations</div>
+            <div class="tags">
+                <span class="tag">LLM Integration</span>
+                <span class="tag">AI Agents</span>
+                <span class="tag">CRM Systems</span>
+                <span class="tag">Payment APIs</span>
+                <span class="tag">Google Ads API</span>
+                <span class="tag">SEO Tooling</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── WORK ──────────────────────────────────────────────────── -->
+<section id="work">
+    <div class="sec-label">Portfolio</div>
+    <h2 class="sec-title">Selected Work</h2>
+    <p class="sec-sub">Eight production systems built and shipped. Each one owned entirely from architecture to deployment.</p>
+
+    <div class="work-grid">
+
+        <div class="work-card reveal">
+            <div class="work-card-top">
+                <div class="work-title">Sports Fusion</div>
+                <span class="badge badge-live">Live</span>
+            </div>
+            <p class="work-desc">Registration and management infrastructure built end to end for sports organizations. Player onboarding, multi-event management, integrated payments, and a full reporting suite. Every layer owned - data model to dashboard.</p>
+            <div class="work-chips">
+                <span class="chip">Sports Tech</span>
+                <span class="chip">Full Platform</span>
+            </div>
+        </div>
+
+        <div class="work-card reveal">
+            <div class="work-card-top">
+                <div class="work-title">Skedadel</div>
+                <span class="badge badge-live">Live</span>
+            </div>
+            <p class="work-desc">Real-time fleet intelligence platform built for a moving fleet with zero tolerance for stale data. Live GPS tracking, driver management, dispatch coordination, dynamic route planning, and a live analytics dashboard with utilization metrics.</p>
+            <div class="work-chips">
+                <span class="chip">Fleet Operations</span>
+                <span class="chip">Full Platform</span>
+            </div>
+        </div>
+
+        <div class="work-card reveal">
+            <div class="work-card-top">
+                <div class="work-title">Sante Bespoke</div>
+                <span class="badge badge-live">Live</span>
+            </div>
+            <p class="work-desc">Complete order lifecycle management from intake to fulfilment. Generates .dat files on demand for downstream legacy system handoff, eliminating manual data entry and keeping every stage of the order flow visible and auditable.</p>
+            <div class="work-chips">
+                <span class="chip">E-commerce</span>
+                <span class="chip">Dashboard System</span>
+            </div>
+        </div>
+
+        <div class="work-card reveal">
+            <div class="work-card-top">
+                <div class="work-title">Medical Platform</div>
+                <span class="badge badge-live">Live</span>
+            </div>
+            <p class="work-desc">Clinical system loading ICD-10 codes, CPT codes, billing history, and patient records into a unified context layer. Doctors interrogate live data through a conversational AI agent referencing real records during the diagnostic discussion.</p>
+            <div class="work-chips">
+                <span class="chip">HealthTech</span>
+                <span class="chip">Clinical System</span>
+                <span class="chip">AI</span>
+            </div>
+        </div>
+
+        <div class="work-card reveal">
+            <div class="work-card-top">
+                <div class="work-title">AI Marketing Platform</div>
+                <span class="badge badge-live">Live</span>
+            </div>
+            <p class="work-desc">Fully autonomous marketing engine. One interface covers blog generation, social media scheduling, Google Ads audits with automated campaign fixes, and SEO analysis. Every output AI-generated and deployment-ready.</p>
+            <div class="work-chips">
+                <span class="chip">Digital Marketing</span>
+                <span class="chip">Automation</span>
+                <span class="chip">AI</span>
+            </div>
+        </div>
+
+        <div class="work-card reveal">
+            <div class="work-card-top">
+                <div class="work-title">Jarvis</div>
+                <span class="badge badge-live">Live</span>
+            </div>
+            <p class="work-desc">Fully autonomous agent that builds, monitors, and deploys software. Manages emails, coordinates multi-step task pipelines, and operates across systems without a human in the loop. Runs indefinitely unsupervised.</p>
+            <div class="work-chips">
+                <span class="chip">DevOps</span>
+                <span class="chip">Autonomous Agent</span>
+                <span class="chip">AI</span>
+            </div>
+        </div>
+
+        <div class="work-card reveal">
+            <div class="work-card-top">
+                <div class="work-title">GoldMine CRM</div>
+                <span class="badge badge-live">Live</span>
+            </div>
+            <p class="work-desc">Legacy CRM integration layer with bi-directional sync between GoldMine and modern tooling. Custom field mappings, automated migration pipelines, and a bridge that kept a business-critical system running without disruption.</p>
+            <div class="work-chips">
+                <span class="chip">Legacy Systems</span>
+                <span class="chip">CRM Integration</span>
+            </div>
+        </div>
+
+        <div class="work-card reveal">
+            <div class="work-card-top">
+                <div class="work-title">Vysto AI</div>
+                <span class="badge badge-mvp">MVP</span>
+            </div>
+            <p class="work-desc">Conversational web platform where users talk to the site instead of clicking through it. Pages build in real time as the conversation progresses. Full CMS - learns from an existing site and generates a Vysto version with image, audio, and text generation natively.</p>
+            <div class="work-chips">
+                <span class="chip">AI / Web</span>
+                <span class="chip">CMS</span>
+                <span class="chip">Platform MVP</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────────────────────── -->
+<section id="contact">
+    <div class="contact-box">
+        <div class="sec-label">Get in Touch</div>
+        <h2 class="sec-title">Let's Build<br>Something.</h2>
+        <p class="contact-text">
+            Open to consulting, architecture roles, and high-complexity engineering projects.
+            If you have a system that needs to be built properly - let's talk.
+        </p>
+        <div class="contact-links">
+            <a href="https://github.com/Tristan-DW" target="_blank" rel="noopener noreferrer" class="btn btn-primary">GitHub Profile</a>
+        </div>
+    </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+    <div>Tristan Wentzel <em>- Head Architect</em></div>
+    <div>Architected by Tristan - Head Architect</div>
+</footer>
+
+<script>
+// ── TYPING ANIMATION ───────────────────────────────────────────
+const LINES = [
+    'Senior Full-Stack Developer',
+    'Founder @ Rockwell Digital',
+    'Head Architect @ Sports Fusion Technology',
+    'Head Architect @ Skedadel Tech',
+    'Head Architect @ Digital Dynasty',
+    'Building systems that scale.'
+];
+
+let li = 0, ci = 0, del = false;
+const el = document.getElementById('type-target');
+
+(function tick() {
+    const line = LINES[li];
+    if (!del) {
+        el.textContent = line.slice(0, ++ci);
+        if (ci === line.length) { del = true; return setTimeout(tick, 2400); }
+    } else {
+        el.textContent = line.slice(0, --ci);
+        if (ci === 0) { del = false; li = (li + 1) % LINES.length; return setTimeout(tick, 450); }
+    }
+    setTimeout(tick, del ? 32 : 62);
+})();
+
+// ── SCROLL REVEAL ──────────────────────────────────────────────
+const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 3) * 0.07}s`;
+    io.observe(el);
+});
+
+// ── NAV OPACITY ON SCROLL ──────────────────────────────────────
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40
+        ? 'rgba(8,8,8,0.95)'
+        : 'rgba(8,8,8,0.80)';
+}, { passive: true });
+</script>
+</body>
+</html>
